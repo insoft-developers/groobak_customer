@@ -4,16 +4,10 @@ apply plugin: 'realm-android'
 android {
     signingConfigs {
         config {
-            storeFile file('D:\\sigesit\\sigesit.jks')
-            storePassword 'sigesit'
-            keyAlias 'sigesit'
-            keyPassword 'sigesit'
-        }
-        debug {
-            storeFile file('D:\\sigesit\\sigesit.jks')
-            storePassword 'sigesit'
-            keyAlias 'sigesit'
-            keyPassword 'sigesit'
+            storeFile file('D:\\groobak\\key\\groobak.jks')
+            storePassword 'november22'
+            keyAlias 'groobak'
+            keyPassword 'november22'
         }
     }
     compileSdkVersion 30
@@ -26,7 +20,7 @@ android {
         versionName '1.1.9'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-        signingConfig signingConfigs.config
+        signingConfig signingConfigs.debug
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
@@ -39,7 +33,7 @@ android {
         signingConfig signingConfigs.config
         }
         debug {
-            signingConfig signingConfigs.config
+            signingConfig signingConfigs.debug
         }
     }
 

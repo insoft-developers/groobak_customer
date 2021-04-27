@@ -1,140 +1,50 @@
 {
   "project_info": {
-    "project_number": "1089672375229",
-    "firebase_url": "https://sigesit-d09dc.firebaseio.com",
-    "project_id": "sigesit-d09dc",
-    "storage_bucket": "sigesit-d09dc.appspot.com"
+    "project_number": "929785673173",
+    "firebase_url": "https://groobak-cfb3b-default-rtdb.firebaseio.com",
+    "project_id": "groobak-cfb3b",
+    "storage_bucket": "groobak-cfb3b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1089672375229:android:0501ee28830bd9ec4880d4",
+        "mobilesdk_app_id": "1:929785673173:android:5caf3742d275c03142b95c",
         "android_client_info": {
-          "package_name": "com.gesit.customer"
+          "package_name": "com.groobak.customer"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1089672375229-3ajirh1favgv6rdtrv29olkf974vbevl.apps.googleusercontent.com",
+          "client_id": "929785673173-6oio8dsqavoebppch930j5s02fjelhfv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.gesit.customer",
-            "certificate_hash": "4256e247eafd4a605788939f424d69f0a8d6b36f"
+            "package_name": "com.groobak.customer",
+            "certificate_hash": "da683b31f4c6b5cfd7a2cff73c9d5731924f1a5d"
           }
         },
         {
-          "client_id": "1089672375229-lhbt297u0cid1mkkt24rkne0uicag8q1.apps.googleusercontent.com",
+          "client_id": "929785673173-ggm0e7jcigfhif650jqjpggihu39f01j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.gesit.customer",
-            "certificate_hash": "a661776be184dc13a595c9e3e3ce63e198ea16b2"
+            "package_name": "com.groobak.customer",
+            "certificate_hash": "5bcc3be5062cbab6f76e2806f4a0adf9b7fb54aa"
           }
         },
         {
-          "client_id": "1089672375229-q48gnmccigqkab1svhv952ie012fprp9.apps.googleusercontent.com",
+          "client_id": "929785673173-msqcct1iafcl1o8fjc09eogp4ukh1sfh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBEVmjAATQEszR53g8uylFcGXUBn-x5-Iw"
+          "current_key": "AIzaSyAgqV7cyOWVbBF5oncU-6fVP699ZF9bnNc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1089672375229-q48gnmccigqkab1svhv952ie012fprp9.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1089672375229:android:62dfc94278d9872a4880d4",
-        "android_client_info": {
-          "package_name": "com.gesit.merchant"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1089672375229-btkvki6k51vgq5ar4thnlt2sv2oltij6.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.gesit.merchant",
-            "certificate_hash": "6a5391b35f79b2a92537529ead778fefe37f888d"
-          }
-        },
-        {
-          "client_id": "1089672375229-gvsq6t5apck1foqq7kk669t0ehe9c5v5.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.gesit.merchant",
-            "certificate_hash": "a661776be184dc13a595c9e3e3ce63e198ea16b2"
-          }
-        },
-        {
-          "client_id": "1089672375229-q48gnmccigqkab1svhv952ie012fprp9.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBEVmjAATQEszR53g8uylFcGXUBn-x5-Iw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1089672375229-q48gnmccigqkab1svhv952ie012fprp9.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1089672375229:android:9697a051449791464880d4",
-        "android_client_info": {
-          "package_name": "com.siges.driver"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1089672375229-49gujnp705jhgan3n8q8p953njkksot7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.siges.driver",
-            "certificate_hash": "59dd11552dad2b9d881141d9de3b220194c2a51b"
-          }
-        },
-        {
-          "client_id": "1089672375229-bvkn6kvuqqvdvs8qf0q8f869aqr8vicm.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.siges.driver",
-            "certificate_hash": "a661776be184dc13a595c9e3e3ce63e198ea16b2"
-          }
-        },
-        {
-          "client_id": "1089672375229-q48gnmccigqkab1svhv952ie012fprp9.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBEVmjAATQEszR53g8uylFcGXUBn-x5-Iw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1089672375229-q48gnmccigqkab1svhv952ie012fprp9.apps.googleusercontent.com",
+              "client_id": "929785673173-msqcct1iafcl1o8fjc09eogp4ukh1sfh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
