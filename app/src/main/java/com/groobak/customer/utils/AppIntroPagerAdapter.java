@@ -35,7 +35,6 @@ public class AppIntroPagerAdapter extends PagerAdapter {
 
         TextView ctvText = (TextView) itemView.findViewById(R.id.ctvText);
         TextView ctvTextdecrib = (TextView) itemView.findViewById(R.id.ctvTextdecrib);
-        TextView iv_icon = (TextView) itemView.findViewById(R.id.iv_icon);
         ivImage.setImageResource(mResources[position]);
         setDescText(position, ctvText, ctvTextdecrib);
 
@@ -47,7 +46,6 @@ public class AppIntroPagerAdapter extends PagerAdapter {
 
 
                 int pos = position + 1;
-                activity.scrollPage(pos);
 
 
             }

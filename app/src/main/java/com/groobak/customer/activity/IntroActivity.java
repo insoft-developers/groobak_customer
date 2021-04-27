@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,15 +26,9 @@ import com.groobak.customer.utils.SharedPrefrence;
 import java.util.Objects;
 
 
-public class IntroActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+public class IntroActivity extends AppCompatActivity {
     public SharedPrefrence preference;
-    ViewPager mViewPager;
-    Button buttonSign;
-    int[] mResources = {R.drawable.slide_one, R.drawable.slide_two, R.drawable.slide_three};
-    private AppIntroPagerAdapter mAdapter;
-    private LinearLayout viewPagerCountDots;
-    private int dotsCount;
-    private ImageView[] dots;
+    private TextView buttonlogin;
     private Context mContext;
 
     @Override
@@ -43,88 +38,20 @@ public class IntroActivity extends AppCompatActivity implements ViewPager.OnPage
         setContentView(R.layout.activity_intro);
         mContext = IntroActivity.this;
         preference = SharedPrefrence.getInstance(mContext);
+        buttonlogin = findViewById(R.id.buttonlogin);
+        removeNotif();
 
-        buttonSign = findViewById(R.id.tombolstar);
-        buttonSign.setOnClickListener(new View.OnClickListener() {
+        buttonlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(IntroActivity.this, LoginActivity.class);
-                startActivity(i);
+                Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
-        removeNotif();
-        mViewPager = findViewById(R.id.viewpager);
-        viewPagerCountDots = findViewById(R.id.viewPagerCountDots);
-
-
-        mAdapter = new AppIntroPagerAdapter(IntroActivity.this, mContext, mResources);
-        mViewPager.setAdapter(mAdapter);
-        mViewPager.setCurrentItem(0);
-        mViewPager.setOnPageChangeListener(this);
-        setPageViewIndicator();
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private void setPageViewIndicator() {
-
-        Log.d("###setPageViewIndicator", " : called");
-        dotsCount = mAdapter.getCount();
-        dots = new ImageView[dotsCount];
-
-        for (int i = 0; i < dotsCount; i++) {
-            dots[i] = new ImageView(mContext);
-            dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselecteditem_dot));
-
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    25,
-                    25
-            );
-
-            params.setMargins(4, 20, 4, 0);
-
-            final int presentPosition = i;
-            dots[presentPosition].setOnTouchListener(new View.OnTouchListener() {
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    mViewPager.setCurrentItem(presentPosition);
-                    return true;
-                }
-
-            });
 
 
-            viewPagerCountDots.addView(dots[i], params);
-        }
-
-        dots[0].setImageDrawable(getResources().getDrawable(R.drawable.selecteditem_dot));
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        Log.e("###onPageSelected, pos ", String.valueOf(position));
-        for (int i = 0; i < dotsCount; i++) {
-            dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselecteditem_dot));
-        }
-
-
-        dots[position].setImageDrawable(getResources().getDrawable(R.drawable.selecteditem_dot));
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    public void scrollPage(int position) {
-        mViewPager.setCurrentItem(position);
-    }
 
     @Override
     public void onBackPressed() {

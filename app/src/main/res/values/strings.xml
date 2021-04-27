@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SIGAP</string>
+    <string name="app_name">GROOBAK</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAfclvsQ69k4amHbPK3zedJuBjUVGMWALI</string>
 
     <string name="introtext1">Daftar!</string>

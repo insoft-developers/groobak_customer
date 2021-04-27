@@ -5,69 +5,91 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true">
+        android:layout_height="180dp">
+
+        <ImageView
+            android:src="@drawable/logo_utama"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="180dp"
+            android:layout_height="60dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="-100dp"
+        android:layout_marginTop="-85dp"
+        android:background="@drawable/background_intro"
+        android:id="@+id/ll2"
+        android:padding="30dp"
+        android:layout_below="@id/ll1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
 
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical">
+    <customfonts.TextViewSFProDisplayRegular
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:id="@+id/txt1"
+        android:layout_below="@id/ll1"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textSize="22dp"
+        android:text="Halo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-            <RelativeLayout
-                android:id="@+id/viewPagerIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:gravity="center_vertical">
+    <customfonts.TextViewSFProDisplayRegular
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_below="@id/txt1"
+        android:id="@+id/txt2"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:layout_marginTop="40dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-                <LinearLayout
-                    android:id="@+id/viewPagerCountDots"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_centerVertical="true"
-                    android:orientation="horizontal" />
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:id="@+id/ll3"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@id/txt2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
 
-            </RelativeLayout>
-
-
-        </RelativeLayout>
 
         <customfonts.Button_SF_Pro_Display_Medium
-            android:id="@+id/tombolstar"
+            android:clickable="true"
+            android:id="@+id/buttonlogin"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_round_1"
-            android:text="Mulai"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-        <customfonts.TextViewSFProDisplayMedium
-            android:id="@+id/iv_icon"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="100dp"
-            android:scaleType="fitCenter"
-            android:text="@string/app_name"
-            android:textColor="@color/black"
-            android:textSize="30sp" />
+            android:background="@drawable/button_del"
+            android:text="Masuk dengan no HP"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
+    <customfonts.TextViewSFProDisplayRegular
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/ll3"
+        android:text="Dengan masuk atau mendaftar, kamu menyetujui \nketentuan layanan dan kebijakan privasi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>

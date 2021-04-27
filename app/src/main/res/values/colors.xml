@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00c1bf</color>
-    <color name="colorgradient">#00d4c5</color>
-    <color name="colorgradienttransparent">#00d4c5</color>
-    <color name="coloraccent">#00c1bf</color>
+    <color name="colorPrimary">#00a5ff</color>
+    <color name="colorgradient">#00a5ff</color>
+    <color name="colorgradienttransparent">#00a5ff</color>
+    <color name="coloraccent">#00a5ff</color>
     <color name="white">#fff</color>
     <color name="black">#2F2F2F</color>
     <color name="orange">#ff120b</color>

@@ -2,55 +2,73 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/splash"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@color/white"
-    android:gravity="center">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/lllogo"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <LinearLayout
         android:orientation="vertical"
-        tools:ignore="UselessParent">
+        android:id="@+id/bg_splash"
+        android:background="@drawable/background_splash"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="280dp">
 
-
-        <LinearLayout
+        <ImageView
+            android:layout_marginTop="160dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/logo_utama"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_marginBottom="80dp"
+            android:layout_height="90dp"/>
+    </LinearLayout>
 
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/logo"
-                android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:layout_gravity="center"
-                android:layout_margin="15dp"
-                android:src="@drawable/splash" />
+    <customfonts.TextViewSFProDisplayMedium
+        android:id="@+id/judul_satu"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/bg_splash"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:text="IKAN SEGAR TERBAIK DI INDONESIA "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-            <customfonts.TextViewSFProDisplayMedium
-                android:id="@+id/appname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textColor="@color/black"
-                android:textSize="35dp" />
+    <customfonts.TextViewSFProDisplayMedium
+        android:id="@+id/judul_dua"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/judul_satu"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:text="oleh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-            <customfonts.TextViewSFProDisplayRegular
-                android:id="@+id/tagline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Layanan Transportasi dan jasa"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
-        </LinearLayout>
+    <customfonts.TextViewSFProDisplayMedium
+        android:id="@+id/judul_tiga"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/judul_dua"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:text="PT. JURAGAN MAJU BERSAMA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
+    <customfonts.TextViewSFProDisplayMedium
+        android:id="@+id/footer"
+        android:layout_alignParentBottom="true"
+        android:textAlignment="center"
+        android:layout_marginBottom="10dp"
+        android:textSize="14sp"
+        android:text="Groobak @ 2021"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    </RelativeLayout>
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/loading"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
 </RelativeLayout>

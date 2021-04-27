@@ -11,8 +11,10 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +40,7 @@ import pl.droidsonroids.gif.GifDrawable;
 public class SplashActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
+    private ProgressBar loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +48,14 @@ public class SplashActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
-        try {
-            GifDrawable gifFromAssets = new GifDrawable(getAssets(), "splash.gif");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        loading = findViewById(R.id.loading);
         removeNotif();
         final User user = BaseApp.getInstance(this).getLoginUser();
         sharedPreferences = getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+
         PhoneProviderHelper.addOperator(sharedPreferences);
+
+        loading.setVisibility(View.VISIBLE);
         new Handler().postDelayed(() -> {
 
             if (user != null) {
@@ -76,6 +78,9 @@ public class SplashActivity extends AppCompatActivity {
                 }
 
             }
+
+            loading.setVisibility(View.GONE);
+
         }, 3500);
 
 
