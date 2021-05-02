@@ -26,19 +26,140 @@
             android:id="@+id/Container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/navigation"
             android:layout_below="@+id/toolbar" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <androidx.cardview.widget.CardView
             android:layout_alignParentBottom="true"
-            android:theme="@style/TextNavigation"
-            app:itemBackground="@color/white"
-            app:itemTextColor="@color/selector"
-            app:labelVisibilityMode="labeled"
-            app:menu="@menu/navigation" />
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="50dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="2dp"
+            android:backgroundTint="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <LinearLayout
+                android:paddingHorizontal="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/topup"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_marginBottom="10dp"
+                        android:layout_centerInParent="true"
+                        android:padding="8dp"
+                        android:backgroundTint="@color/backgroundgray"
+                        android:background="@drawable/button_round_2"
+                        android:id="@+id/ictopup"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_home" />
+
+                    <customfonts.TextViewSFProDisplayMedium
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ictopup"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="Beranda"
+                        android:textSize="10dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/promo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_marginBottom="10dp"
+                        android:backgroundTint="@color/backgroundgray"
+                        android:padding="8dp"
+                        android:background="@drawable/button_round_2"
+                        android:id="@+id/icpromo"
+                        android:layout_centerInParent="true"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_transaksi" />
+
+                    <customfonts.TextViewSFProDisplayMedium
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/icpromo"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="Aktivitas"
+                        android:textSize="10dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/fitur"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_marginBottom="10dp"
+                        android:backgroundTint="@color/backgroundgray"
+                        android:padding="8dp"
+                        android:background="@drawable/button_round_2"
+                        android:id="@+id/icwa"
+                        android:layout_width="40dp"
+                        android:layout_centerInParent="true"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_pesan" />
+
+                    <customfonts.TextViewSFProDisplayMedium
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/icwa"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="Inbox"
+                        android:textSize="10dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/detail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_marginBottom="10dp"
+                        android:backgroundTint="@color/backgroundgray"
+                        android:padding="8dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/button_round_2"
+                        android:id="@+id/icdetail"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_profil" />
+
+                    <customfonts.TextViewSFProDisplayMedium
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/icdetail"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="Akun"
+                        android:textSize="10dp" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 </FrameLayout>

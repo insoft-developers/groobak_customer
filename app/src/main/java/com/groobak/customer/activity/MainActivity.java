@@ -47,56 +47,54 @@ public class MainActivity extends AppCompatActivity {
     public static MainActivity mainActivity;
     long mBackPressed;
     LinearLayout mAdViewLayout;
-    BottomNavigationView navigation;
     int previousSelect = 0;
     private FragmentManager fragmentManager;
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Menu menu = navigation.getMenu();
-            menu.findItem(R.id.home).setIcon(R.drawable.ic_home);
-            menu.findItem(R.id.order).setIcon(R.drawable.ic_transaksi);
-            menu.findItem(R.id.favourite).setIcon(R.drawable.ic_favourites);
-            menu.findItem(R.id.chat).setIcon(R.drawable.ic_pesan);
-            menu.findItem(R.id.profile).setIcon(R.drawable.ic_profil);
-            switch (item.getItemId()) {
-                case R.id.home:
-                    HomeFragment homeFragment = new HomeFragment();
-                    navigationItemSelected(0);
-                    item.setIcon(R.drawable.ic_home_s);
-                    loadFrag(homeFragment, getString(R.string.menu_home), fragmentManager);
-                    return true;
-                case R.id.order:
-                    HistoryFragment listFragment = new HistoryFragment();
-                    navigationItemSelected(1);
-                    item.setIcon(R.drawable.ic_transaksi_s);
-                    loadFrag(listFragment, getString(R.string.menu_home), fragmentManager);
-                    return true;
-                case R.id.favourite:
-                    FavouriteFragment favFragment = new FavouriteFragment();
-                    navigationItemSelected(1);
-                    item.setIcon(R.drawable.ic_favourite);
-                    loadFrag(favFragment, getString(R.string.menu_favourite), fragmentManager);
-                    return true;
-                case R.id.chat:
-                    MessageFragment pesanFragment = new MessageFragment();
-                    navigationItemSelected(2);
-                    item.setIcon(R.drawable.ic_pesan_s);
-                    loadFrag(pesanFragment, getString(R.string.menu_home), fragmentManager);
-                    return true;
-                case R.id.profile:
-                    ProfileFragment profilFragment = new ProfileFragment();
-                    navigationItemSelected(3);
-                    item.setIcon(R.drawable.ic_profil_s);
-                    loadFrag(profilFragment, getString(R.string.menu_home), fragmentManager);
-                    return true;
-
-            }
-            return false;
-        }
-    };
+//    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+//            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+//
+//        @Override
+//        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//            Menu menu = navigation.getMenu();
+//            menu.findItem(R.id.home).setIcon(R.drawable.ic_home);
+//            menu.findItem(R.id.order).setIcon(R.drawable.ic_transaksi);
+//            menu.findItem(R.id.chat).setIcon(R.drawable.ic_pesan);
+//            menu.findItem(R.id.profile).setIcon(R.drawable.ic_profil);
+//            switch (item.getItemId()) {
+//                case R.id.home:
+//                    HomeFragment homeFragment = new HomeFragment();
+//                    navigationItemSelected(0);
+//                    item.setIcon(R.drawable.ic_home_s);
+//                    loadFrag(homeFragment, getString(R.string.menu_home), fragmentManager);
+//                    return true;
+//                case R.id.order:
+//                    HistoryFragment listFragment = new HistoryFragment();
+//                    navigationItemSelected(1);
+//                    item.setIcon(R.drawable.ic_transaksi_s);
+//                    loadFrag(listFragment, getString(R.string.menu_home), fragmentManager);
+//                    return true;
+//                case R.id.favourite:
+//                    FavouriteFragment favFragment = new FavouriteFragment();
+//                    navigationItemSelected(1);
+//                    item.setIcon(R.drawable.ic_favourite);
+//                    loadFrag(favFragment, getString(R.string.menu_favourite), fragmentManager);
+//                    return true;
+//                case R.id.chat:
+//                    MessageFragment pesanFragment = new MessageFragment();
+//                    navigationItemSelected(2);
+//                    item.setIcon(R.drawable.ic_pesan_s);
+//                    loadFrag(pesanFragment, getString(R.string.menu_home), fragmentManager);
+//                    return true;
+//                case R.id.profile:
+//                    ProfileFragment profilFragment = new ProfileFragment();
+//                    navigationItemSelected(3);
+//                    item.setIcon(R.drawable.ic_profil_s);
+//                    loadFrag(profilFragment, getString(R.string.menu_home), fragmentManager);
+//                    return true;
+//
+//            }
+//            return false;
+//        }
+//    };
 
     public static MainActivity getInstance() {
         return mainActivity;
@@ -108,12 +106,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAdViewLayout = findViewById(R.id.adView);
         fragmentManager = getSupportFragmentManager();
-        navigation = findViewById(R.id.navigation);
-        navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setItemIconTintList(null);
-        Menu menu = navigation.getMenu();
-        menu.findItem(R.id.home).setIcon(R.drawable.ic_home_s);
+//        navigation = findViewById(R.id.navigation);
+//        navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//        navigation.setItemIconTintList(null);
+//        Menu menu = navigation.getMenu();
+//        menu.findItem(R.id.home).setIcon(R.drawable.ic_home_s);
         HomeFragment homeFragment = new HomeFragment();
         loadFrag(homeFragment, getString(R.string.menu_home), fragmentManager);
         User loginUser = BaseApp.getInstance(this).getLoginUser();

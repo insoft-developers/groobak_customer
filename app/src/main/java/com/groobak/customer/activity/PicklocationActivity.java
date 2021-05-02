@@ -252,6 +252,7 @@ public class PicklocationActivity extends AppCompatActivity
         }).start();
     }
 
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         updateLastLocation();

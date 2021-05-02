@@ -122,12 +122,8 @@ public class LoginActivity extends AppCompatActivity {
                 phoneNumber = countryCode.getText().toString() + phoneText.getText().toString();
                 String phonetext = phoneText.getText().toString();
                 String pass = password.getText().toString();
-                if (TextUtils.isEmpty(phonetext) || TextUtils.isEmpty(pass)) {
+                if (TextUtils.isEmpty(phonetext)) {
                     notif(getString(R.string.phonepass));
-                } else if (TextUtils.isEmpty(phonetext)) {
-                    notif(getString(R.string.phoneempty));
-                } else if (TextUtils.isEmpty(pass)) {
-                    notif(getString(R.string.passempty));
                 } else {
                     if (NetworkUtils.isConnected(LoginActivity.this)) {
                         progressshow();
@@ -467,7 +463,7 @@ public class LoginActivity extends AppCompatActivity {
         progressshow();
         LoginRequestJson request = new LoginRequestJson();
         request.setNotelepon(countryCode.getText().toString().replace("+", "") + phoneText.getText().toString());
-        request.setPassword(password.getText().toString());
+        request.setPassword("12345");
         FirebaseInstanceId token = FirebaseInstanceId.getInstance();
         request.setRegId(token.getToken());
 
