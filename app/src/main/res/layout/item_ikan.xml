@@ -5,30 +5,27 @@
     android:id="@+id/rootLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     app:ignore="NamespaceTypo">
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginBottom="3dp"
+        android:layout_margin="3dp"
         card_view:cardBackgroundColor="@color/white"
         card_view:cardCornerRadius="8dp"
-        card_view:cardUseCompatPadding="false">
+        card_view:cardUseCompatPadding="false"
+        card_view:elevation="15dp">
 
         <LinearLayout
-            android:layout_width="130dp"
-            android:layout_height="200dp"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_width="130dp"
-                android:layout_height="130dp">
-
+                android:layout_width="match_parent"
+                android:layout_height="110dp">
                 <ImageView
                     android:scaleType="fitXY"
                     android:id="@+id/image"
@@ -40,12 +37,13 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <customfonts.TextViewSFProDisplayMedium
-                    android:id="@+id/txtnamagroobak"
+                    android:id="@+id/namaikan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -54,26 +52,34 @@
                     android:layout_weight="1"
                     android:gravity="top"
                     android:maxLines="1"
-                    android:text="nama grobak"
+                    android:text="makanan"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
 
-                <customfonts.TextViewSFProDisplayRegular
-                    android:id="@+id/txtjenisikan"
+                <customfonts.TextViewSFProDisplayMedium
+                    android:textAlignment="textEnd"
+                    android:id="@+id/jumlahlike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="0dp"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:maxLines="2"
-                    android:minLines="2"
-                    android:drawablePadding="3dp"
-                    android:drawableStart="@drawable/ikan_air"
-                    android:text="12 jenis ikan"
-                    android:textColor="@color/green_700"
-                    android:textSize="12dp" />
+                    android:maxLines="1"
+                    android:text="100"
+                    android:textColor="@color/gray"
+                    android:textSize="15dp" />
+
+                <ImageView
+                    android:id="@+id/favourite"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/button_round_2"
+                    android:backgroundTint="@color/white"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_love"
+                    android:tint="@color/gray" />
 
             </LinearLayout>
 

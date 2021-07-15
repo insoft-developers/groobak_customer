@@ -27,12 +27,38 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.groobak.customer.R;
 import com.groobak.customer.constants.BaseApp;
 import com.groobak.customer.constants.Constants;
 import com.groobak.customer.gmap.directions.Directions;
 import com.groobak.customer.gmap.directions.Route;
+import com.groobak.customer.item.CariGroobakItem;
+import com.groobak.customer.item.PromoIkanItem;
 import com.groobak.customer.json.CheckStatusTransaksiRequest;
 import com.groobak.customer.json.CheckStatusTransaksiResponse;
 import com.groobak.customer.json.GetNearRideCarRequestJson;
@@ -55,27 +81,6 @@ import com.groobak.customer.utils.api.MapDirectionAPI;
 import com.groobak.customer.utils.api.ServiceGenerator;
 import com.groobak.customer.utils.api.service.BookService;
 import com.groobak.customer.utils.api.service.UserService;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.widget.Autocomplete;
-import com.google.android.libraries.places.widget.AutocompleteActivity;
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -103,7 +108,7 @@ import retrofit2.Response;
 import static com.groobak.customer.json.fcm.FCMType.ORDER;
 
 
-public class RideCarActivity extends AppCompatActivity
+public class CariGroobakActivity extends AppCompatActivity
         implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     public static final String FITUR_KEY = "FiturKey";
     private static final String TAG = "RideCarActivity";
@@ -112,57 +117,9 @@ public class RideCarActivity extends AppCompatActivity
     TransaksiModel transaksi;
     Thread thread;
     boolean threadRun = true;
-    Context context = RideCarActivity.this;
-    @BindView(R.id.pickUpContainer)
-    LinearLayout setPickUpContainer;
-    @BindView(R.id.destinationContainer)
-    LinearLayout setDestinationContainer;
-    @BindView(R.id.pickUpButton)
-    Button setPickUpButton;
-    @BindView(R.id.destinationButton)
-    Button setDestinationButton;
-    @BindView(R.id.pickUpText)
-    TextView pickUpText;
+    Context context = CariGroobakActivity.this;
     @BindView(R.id.bottom_sheet)
     LinearLayout bottomsheet;
-    @BindView(R.id.destinationText)
-    TextView destinationText;
-    @BindView(R.id.detail)
-    LinearLayout detail;
-    @BindView(R.id.distance)
-    TextView distanceText;
-    @BindView(R.id.price)
-    TextView priceText;
-    @BindView(R.id.topUp)
-    TextView topUp;
-    @BindView(R.id.order)
-    Button orderButton;
-    @BindView(R.id.image)
-    ImageView icon;
-    @BindView(R.id.layanan)
-    TextView layanan;
-    @BindView(R.id.layanandes)
-    TextView layanandesk;
-    @BindView(R.id.cost)
-    TextView cost;
-    @BindView(R.id.ketsaldo)
-    TextView diskontext;
-    @BindView(R.id.diskon)
-    TextView diskon;
-    @BindView(R.id.saldo)
-    TextView saldotext;
-    @BindView(R.id.checkedcash)
-    ImageButton checkedcash;
-    @BindView(R.id.checkedwallet)
-    ImageButton checkedwallet;
-    @BindView(R.id.cashPayment)
-    TextView cashpayment;
-    @BindView(R.id.walletpayment)
-    TextView walletpayment;
-    @BindView(R.id.llcheckedwallet)
-    LinearLayout llcheckedwallet;
-    @BindView(R.id.llcheckedcash)
-    LinearLayout llcheckedcash;
     @BindView(R.id.back_btn)
     ImageView backbtn;
     @BindView(R.id.rlprogress)
@@ -173,14 +130,9 @@ public class RideCarActivity extends AppCompatActivity
     TextView textnotif;
     @BindView(R.id.textprogress)
     TextView textprogress;
-    @BindView(R.id.fitur)
-    TextView fiturtext;
-    @BindView(R.id.promocode)
-    EditText promokode;
-    @BindView(R.id.btnpromo)
-    Button btnpromo;
-    @BindView(R.id.promonotif)
-    TextView promonotif;
+    @BindView(R.id.rv_cari_groobak)
+    RecyclerView rv_cari_groobak;
+
     String fitur, getbiaya, biayaminimum, biayaakhir, icondriver;
     private DriverRequest request;
     private GoogleMap gMap;
@@ -204,7 +156,6 @@ public class RideCarActivity extends AppCompatActivity
         @Override
         public void onFailure(@NonNull okhttp3.Call call, @NonNull IOException e) {
             notif("error connection, please select destination again!");
-            setDestinationContainer.setVisibility(View.VISIBLE);
             rlprogress.setVisibility(View.GONE);
         }
 
@@ -212,10 +163,10 @@ public class RideCarActivity extends AppCompatActivity
         public void onResponse(@NonNull okhttp3.Call call, okhttp3.Response response) throws IOException {
             if (response.isSuccessful()) {
                 final String json = Objects.requireNonNull(response.body()).string();
-                final long distance = MapDirectionAPI.getDistance(RideCarActivity.this, json);
-                final String time = MapDirectionAPI.getTimeDistance(RideCarActivity.this, json);
+                final long distance = MapDirectionAPI.getDistance(CariGroobakActivity.this, json);
+                final String time = MapDirectionAPI.getTimeDistance(CariGroobakActivity.this, json);
                 if (distance >= 0) {
-                    RideCarActivity.this.runOnUiThread(new Runnable() {
+                    CariGroobakActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             String format = String.format(Locale.US, "%.0f", (double) distance / 1000f);
@@ -223,15 +174,9 @@ public class RideCarActivity extends AppCompatActivity
                             if (dist < maksimum) {
                                 rlprogress.setVisibility(View.GONE);
                                 promocode = 0;
-                                promokode.setText("");
                                 updateLineDestination(json);
-                                updateDistance(distance);
-                                fiturtext.setText(time);
                                 String diskontotal = String.valueOf(promocode);
-                                Utility.currencyTXT(diskon, diskontotal, RideCarActivity.this);
                             } else {
-                                detail.setVisibility(View.GONE);
-                                setDestinationContainer.setVisibility(View.VISIBLE);
                                 rlprogress.setVisibility(View.GONE);
                                 notif("destination too far away!");
                             }
@@ -248,7 +193,7 @@ public class RideCarActivity extends AppCompatActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ride);
+        setContentView(R.layout.activity_cari_groobak);
         ButterKnife.bind(this);
         BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomsheet);
         behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -260,26 +205,10 @@ public class RideCarActivity extends AppCompatActivity
             Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
         }
 
-        setPickUpContainer.setVisibility(View.VISIBLE);
-        setDestinationContainer.setVisibility(View.GONE);
-        detail.setVisibility(View.GONE);
 
         User userLogin = BaseApp.getInstance(this).getLoginUser();
         saldoWallet = String.valueOf(userLogin.getWalletSaldo());
 
-        setPickUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onPickUp();
-            }
-        });
-
-        setDestinationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onDestination();
-            }
-        });
 
 
         backbtn.setOnClickListener(new View.OnClickListener() {
@@ -289,48 +218,6 @@ public class RideCarActivity extends AppCompatActivity
             }
         });
 
-        topUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), TopupSaldoActivity.class));
-            }
-        });
-
-        btnpromo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                    Objects.requireNonNull(imm).hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
-                } catch (Exception ignored) {
-
-                }
-                if (promokode.getText().toString().isEmpty()) {
-                    notif("Promo code cant be empty!");
-                } else {
-                    promokodedata();
-                }
-            }
-        });
-
-
-        pickUpText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setPickUpContainer.setVisibility(View.VISIBLE);
-                setDestinationContainer.setVisibility(View.GONE);
-                openAutocompleteActivity(1);
-            }
-        });
-
-        destinationText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setDestinationContainer.setVisibility(View.VISIBLE);
-                setPickUpContainer.setVisibility(View.GONE);
-                openAutocompleteActivity(2);
-            }
-        });
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapView);
@@ -367,87 +254,11 @@ public class RideCarActivity extends AppCompatActivity
         biayaminimum = String.valueOf(designedFitur.getBiaya_minimum());
         biayaakhir = String.valueOf(designedFitur.getBiayaAkhir());
         icondriver = designedFitur.getIcon_driver();
-        Toast.makeText(RideCarActivity.this, "fitur :"+icondriver, Toast.LENGTH_SHORT).show();
         maksimum = Long.parseLong(designedFitur.getMaksimumdist());
 
         updateFitur();
 
-        diskontext.setText("Discount " + designedFitur.getDiskon() + " with Wallet");
-        PicassoTrustAll.getInstance(this)
-                .load(Constants.IMAGESFITUR + ICONFITUR)
-                .placeholder(R.drawable.logo)
-                .resize(100, 100)
-                .into(icon);
 
-        layanan.setText(designedFitur.getFitur());
-        layanandesk.setText(designedFitur.getKeterangan());
-
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void promokodedata() {
-        btnpromo.setEnabled(false);
-        btnpromo.setText("Wait...");
-        final User user = BaseApp.getInstance(this).getLoginUser();
-        PromoRequestJson request = new PromoRequestJson();
-        request.setFitur(fitur);
-        request.setCode(promokode.getText().toString());
-
-        UserService service = ServiceGenerator.createService(UserService.class, user.getNoTelepon(), user.getPassword());
-        service.promocode(request).enqueue(new Callback<PromoResponseJson>() {
-            @Override
-            public void onResponse(@NonNull Call<PromoResponseJson> call, @NonNull Response<PromoResponseJson> response) {
-                if (response.isSuccessful()) {
-                    if (Objects.requireNonNull(response.body()).getMessage().equalsIgnoreCase("success")) {
-                        btnpromo.setEnabled(true);
-                        btnpromo.setText("Use");
-                        if (response.body().getType().equals("persen")) {
-                            promocode = (Long.parseLong(response.body().getNominal()) * harga) / 100;
-                        } else {
-                            promocode = Long.parseLong(response.body().getNominal());
-                        }
-                        Log.e("", String.valueOf(promocode));
-                        if (checkedpaywallet.equals("1")) {
-                            long diskonwallet = (long) (Double.parseDouble(biayaakhir) * harga);
-                            String diskontotal = String.valueOf(diskonwallet + promocode);
-                            String totalbiaya = String.valueOf(harga - (diskonwallet + promocode));
-                            Utility.currencyTXT(priceText, totalbiaya, context);
-                            Utility.currencyTXT(diskon, diskontotal, RideCarActivity.this);
-                        } else {
-                            String diskontotal = String.valueOf(promocode);
-                            String totalbiaya = String.valueOf(harga - promocode);
-                            Utility.currencyTXT(priceText, totalbiaya, context);
-                            Utility.currencyTXT(diskon, diskontotal, RideCarActivity.this);
-                        }
-                    } else {
-                        btnpromo.setEnabled(true);
-                        btnpromo.setText("Use");
-                        notif("promo code not available!");
-                        promocode = 0;
-                        if (checkedpaywallet.equals("1")) {
-                            long diskonwallet = (long) (Double.parseDouble(biayaakhir) * harga);
-                            String diskontotal = String.valueOf(diskonwallet + promocode);
-                            String totalbiaya = String.valueOf(harga - (diskonwallet + promocode));
-                            Utility.currencyTXT(priceText, totalbiaya, context);
-                            Utility.currencyTXT(diskon, diskontotal, RideCarActivity.this);
-                        } else {
-                            String diskontotal = String.valueOf(promocode);
-                            String totalbiaya = String.valueOf(harga - promocode);
-                            Utility.currencyTXT(priceText, totalbiaya, context);
-                            Utility.currencyTXT(diskon, diskontotal, RideCarActivity.this);
-                        }
-                    }
-                } else {
-                    notif("error!");
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<PromoResponseJson> call, @NonNull Throwable t) {
-                t.printStackTrace();
-                notif("error");
-            }
-        });
     }
 
     public void notif(String text) {
@@ -469,44 +280,6 @@ public class RideCarActivity extends AppCompatActivity
         startActivityForResult(intent, request_code);
 
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                Place place = Autocomplete.getPlaceFromIntent(data);
-                pickUpText.setText(place.getAddress());
-                LatLng latLng = place.getLatLng();
-                if (latLng != null) {
-                    gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                            new LatLng(latLng.latitude, latLng.longitude), 15f)
-                    );
-                    onPickUp();
-                }
-            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
-                Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, Objects.requireNonNull(status.getStatusMessage()));
-            }
-        }
-        if (requestCode == 2) {
-            if (resultCode == RESULT_OK) {
-                Place place = Autocomplete.getPlaceFromIntent(data);
-                destinationText.setText(place.getAddress());
-                LatLng latLng = place.getLatLng();
-                if (latLng != null) {
-                    gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                            new LatLng(latLng.latitude, latLng.longitude), 15f)
-                    );
-                    onDestination();
-                }
-            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
-                Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, Objects.requireNonNull(status.getStatusMessage()));
-            }
-        }
-    }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -615,44 +388,6 @@ public class RideCarActivity extends AppCompatActivity
     }
 
 
-    private void onDestination() {
-
-        if (destinationMarker != null) destinationMarker.remove();
-        LatLng centerPos = gMap.getCameraPosition().target;
-        destinationMarker = gMap.addMarker(new MarkerOptions()
-                .position(centerPos)
-                .title("Destination")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.destination)));
-        destinationLatLang = centerPos;
-
-        requestAddress(centerPos, destinationText);
-        requestRoute();
-
-        setDestinationContainer.setVisibility(View.GONE);
-        if (pickUpText.getText().toString().isEmpty()) {
-            setPickUpContainer.setVisibility(View.VISIBLE);
-        } else {
-            setPickUpContainer.setVisibility(View.GONE);
-        }
-    }
-
-    private void onPickUp() {
-        setDestinationContainer.setVisibility(View.VISIBLE);
-        setPickUpContainer.setVisibility(View.GONE);
-        if (pickUpMarker != null) pickUpMarker.remove();
-        LatLng centerPos = gMap.getCameraPosition().target;
-        pickUpMarker = gMap.addMarker(new MarkerOptions()
-                .position(centerPos)
-                .title("Pick Up")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pickup)));
-        pickUpLatLang = centerPos;
-        textprogress.setVisibility(View.VISIBLE);
-
-        requestAddress(centerPos, pickUpText);
-        fetchNearDriver(pickUpLatLang.latitude, pickUpLatLang.longitude, fitur);
-        requestRoute();
-    }
-
     private void requestRoute() {
         if (pickUpLatLang != null && destinationLatLang != null) {
             rlprogress.setVisibility(View.VISIBLE);
@@ -663,7 +398,7 @@ public class RideCarActivity extends AppCompatActivity
 
 
     private void updateLineDestination(String json) {
-        Directions directions = new Directions(RideCarActivity.this);
+        Directions directions = new Directions(CariGroobakActivity.this);
         try {
             List<Route> routes = directions.parse(json);
 
@@ -671,7 +406,7 @@ public class RideCarActivity extends AppCompatActivity
             if (routes.size() > 0) {
                 directionLine = gMap.addPolyline((new PolylineOptions())
                         .addAll(routes.get(0).getOverviewPolyLine())
-                        .color(ContextCompat.getColor(RideCarActivity.this, R.color.colorgradient))
+                        .color(ContextCompat.getColor(CariGroobakActivity.this, R.color.colorgradient))
                         .width(8));
 
             }
@@ -680,105 +415,6 @@ public class RideCarActivity extends AppCompatActivity
         }
     }
 
-    private void updateDistance(long distance) {
-        BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomsheet);
-        behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-        detail.setVisibility(View.VISIBLE);
-        setDestinationContainer.setVisibility(View.GONE);
-        setPickUpContainer.setVisibility(View.GONE);
-        orderButton.setVisibility(View.VISIBLE);
-
-        checkedpaywallet = "0";
-        Log.e("CHECKEDWALLET", checkedpaywallet);
-        checkedcash.setSelected(true);
-        checkedwallet.setSelected(false);
-        cashpayment.setTextColor(getResources().getColor(R.color.colorgradient));
-        walletpayment.setTextColor(getResources().getColor(R.color.gray));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            checkedcash.setBackgroundTintList(getResources().getColorStateList(R.color.colorgradient));
-            checkedwallet.setBackgroundTintList(getResources().getColorStateList(R.color.gray));
-        }
-        float km = ((float) (distance)) / 1000f;
-
-        this.jarak = km;
-
-        String format = String.format(Locale.US, "%.1f", km);
-        distanceText.setText(format);
-        String biaya = String.valueOf(biayaminimum);
-        long biayaTotal = (long) (Double.parseDouble(getbiaya) * km);
-        if (biayaTotal < Double.parseDouble(biayaminimum)) {
-            this.harga = Long.parseLong(biayaminimum);
-            biayaTotal = Long.parseLong(biayaminimum);
-            Utility.currencyTXT(cost, biaya, this);
-        } else {
-            Utility.currencyTXT(cost, getbiaya, this);
-        }
-        this.harga = biayaTotal;
-
-        final long finalBiayaTotal = biayaTotal;
-        String totalbiaya = String.valueOf(finalBiayaTotal);
-        Utility.currencyTXT(priceText, totalbiaya, this);
-
-        long saldokini = Long.parseLong(saldoWallet);
-        if (saldokini < (biayaTotal - (harga * Double.parseDouble(biayaakhir)))) {
-            llcheckedcash.setOnClickListener(view -> {
-                String totalbiaya12 = String.valueOf(finalBiayaTotal - promocode);
-                Utility.currencyTXT(priceText, totalbiaya12, context);
-                String diskontotal = String.valueOf(promocode);
-                Utility.currencyTXT(diskon, diskontotal, RideCarActivity.this);
-                checkedcash.setSelected(true);
-                checkedwallet.setSelected(false);
-                checkedpaywallet = "0";
-                Log.e("CHECKEDWALLET", checkedpaywallet);
-                cashpayment.setTextColor(getResources().getColor(R.color.colorgradient));
-                walletpayment.setTextColor(getResources().getColor(R.color.gray));
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    checkedcash.setBackgroundTintList(getResources().getColorStateList(R.color.colorgradient));
-                    checkedwallet.setBackgroundTintList(getResources().getColorStateList(R.color.gray));
-                }
-            });
-        } else {
-            llcheckedcash.setOnClickListener(view -> {
-                String diskontotal = String.valueOf(promocode);
-                String totalbiaya1 = String.valueOf(finalBiayaTotal - promocode);
-                Utility.currencyTXT(priceText, totalbiaya1, context);
-                Utility.currencyTXT(diskon, diskontotal, RideCarActivity.this);
-
-                checkedcash.setSelected(true);
-                checkedwallet.setSelected(false);
-                checkedpaywallet = "0";
-                Log.e("CHECKEDWALLET", checkedpaywallet);
-                cashpayment.setTextColor(getResources().getColor(R.color.colorgradient));
-                walletpayment.setTextColor(getResources().getColor(R.color.gray));
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    checkedcash.setBackgroundTintList(getResources().getColorStateList(R.color.colorgradient));
-                    checkedwallet.setBackgroundTintList(getResources().getColorStateList(R.color.gray));
-                }
-            });
-
-            final long finalBiayaTotal1 = biayaTotal;
-            llcheckedwallet.setOnClickListener(view -> {
-                long diskonwallet = (long) (Double.parseDouble(biayaakhir) * harga);
-                String totalwallet = String.valueOf(diskonwallet + promocode);
-                Utility.currencyTXT(diskon, totalwallet, context);
-                String totalbiaya13 = String.valueOf(finalBiayaTotal1 - (diskonwallet + promocode));
-                Utility.currencyTXT(priceText, totalbiaya13, context);
-                checkedcash.setSelected(false);
-                checkedwallet.setSelected(true);
-                checkedpaywallet = "1";
-                Log.e("CHECKEDWALLET", checkedpaywallet);
-                walletpayment.setTextColor(getResources().getColor(R.color.colorgradient));
-                cashpayment.setTextColor(getResources().getColor(R.color.gray));
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    checkedwallet.setBackgroundTintList(getResources().getColorStateList(R.color.colorgradient));
-                    checkedcash.setBackgroundTintList(getResources().getColorStateList(R.color.gray));
-                }
-            });
-        }
-
-        orderButton.setOnClickListener(v -> onOrderButton());
-
-    }
 
     @Override
     protected void onDestroy() {
@@ -811,11 +447,16 @@ public class RideCarActivity extends AppCompatActivity
                     if (response.isSuccessful()) {
                         driverAvailable = Objects.requireNonNull(response.body()).getData();
                         createMarker();
+                        CariGroobakItem cariGroobakItem = new CariGroobakItem(context, driverAvailable);
+                        rv_cari_groobak.setAdapter(cariGroobakItem);
+
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(CariGroobakActivity.this);
+                        rv_cari_groobak.setLayoutManager(layoutManager);
                     }
                 }
 
                 @Override
-                public void onFailure(@NonNull retrofit2.Call<GetNearRideCarResponseJson> call, @NonNull Throwable t) {
+                public void onFailure(@NonNull Call<GetNearRideCarResponseJson> call, @NonNull Throwable t) {
 
                 }
             });
@@ -853,40 +494,6 @@ public class RideCarActivity extends AppCompatActivity
                     }
                 }
             });
-        }
-    }
-
-
-    private void onOrderButton() {
-        if (driverAvailable.isEmpty()) {
-            notif("Sorry, there are no drivers around you.");
-        } else {
-            RideCarRequestJson param = new RideCarRequestJson();
-            User userLogin = BaseApp.getInstance(this).getLoginUser();
-            param.setIdPelanggan(userLogin.getId());
-            param.setOrderFitur(fitur);
-            param.setStartLatitude(pickUpLatLang.latitude);
-            param.setStartLongitude(pickUpLatLang.longitude);
-            param.setEndLatitude(destinationLatLang.latitude);
-            param.setEndLongitude(destinationLatLang.longitude);
-            param.setJarak(this.jarak);
-            param.setHarga(this.harga);
-            param.setEstimasi(fiturtext.getText().toString());
-            param.setAlamatAsal(pickUpText.getText().toString());
-            param.setAlamatTujuan(destinationText.getText().toString());
-            if (checkedpaywallet.equals("1")) {
-                param.setKreditpromo(String.valueOf((Double.parseDouble(biayaakhir) * this.harga) + promocode));
-                param.setPakaiWallet(1);
-                sendRequestTransaksi(param, driverAvailable);
-            } else if (checkedpaywallet.equals("0")) {
-                param.setKreditpromo(String.valueOf(promocode));
-                param.setPakaiWallet(0);
-                sendRequestTransaksi(param, driverAvailable);
-            } else {
-                param.setKreditpromo(String.valueOf((Double.parseDouble(biayaakhir) * this.harga) + promocode));
-                param.setPakaiWallet(2);
-                sendRequestTransaksi(param, driverAvailable);
-            }
         }
     }
 
@@ -1006,11 +613,11 @@ public class RideCarActivity extends AppCompatActivity
             request.setKreditPromo(transaksi.getKreditPromo());
             request.setPakaiWallet(String.valueOf(transaksi.isPakaiWallet()));
             request.setEstimasi(transaksi.getEstimasi());
-            request.setLayanan(layanan.getText().toString());
-            request.setLayanandesc(layanandesk.getText().toString());
+            request.setLayanan("");
+            request.setLayanandesc("");
             request.setIcon(ICONFITUR);
-            request.setBiaya(cost.getText().toString());
-            request.setDistance(distanceText.getText().toString());
+            request.setBiaya("");
+            request.setDistance("");
 
 
             String namaLengkap = String.format("%s", loginUser.getFullnama());
@@ -1052,7 +659,7 @@ public class RideCarActivity extends AppCompatActivity
                     threadRun = false;
                     for (DriverModel cDriver : driverAvailable) {
                         if (cDriver.getId().equals(response.getId())) {
-                            Intent intent = new Intent(RideCarActivity.this, ProgressActivity.class);
+                            Intent intent = new Intent(CariGroobakActivity.this, ProgressActivity.class);
                             intent.putExtra("id_driver", cDriver.getId());
                             intent.putExtra("id_transaksi", request.getIdTransaksi());
                             intent.putExtra("response", "2");
@@ -1088,8 +695,6 @@ public class RideCarActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         User userLogin = BaseApp.getInstance(this).getLoginUser();
-        saldoWallet = String.valueOf(userLogin.getWalletSaldo());
-        Utility.currencyTXT(saldotext, saldoWallet, this);
     }
 
 

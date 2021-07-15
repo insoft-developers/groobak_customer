@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context=".activity.PilihGroobakActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/button_round_1"
+            android:backgroundTint="@color/white"
+            android:padding="10dp"
+            android:src="@drawable/ic_back"
+            app:tint="@color/black" />
+
+        <customfonts.TextViewSFProDisplayMedium
+            android:id="@+id/txt_nama_groobak"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:text="Groobak Agung"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout2"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="vertical"
+        android:layout_marginTop="-30dp"
+        android:layout_below="@id/layout1"
+        android:background="@drawable/button_round_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <customfonts.TextViewSFProDisplayRegular
+            android:textSize="14sp"
+            android:text="Alamat Pengantaran :"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <customfonts.TextViewSFProDisplayRegular
+            android:id="@+id/txtalamatpengantaran"
+            android:textSize="17sp"
+            android:layout_marginTop="7dp"
+            android:text="Tanjung Morawa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <customfonts.TextViewSFProDisplayRegular
+            android:textColor="@color/white"
+            android:background="@drawable/button_round_1"
+            android:layout_marginTop="5dp"
+            android:id="@+id/txtgantialamat"
+            android:text="Ganti Alamat"
+            android:textSize="12sp"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/divider1"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        android:layout_below="@id/layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_marginTop="10dp"
+            android:background="@color/grey_10"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+        <View
+            android:layout_marginTop="2dp"
+            android:background="@color/grey_10"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"/>
+    </LinearLayout>
+    <ScrollView
+        android:layout_below="@id/divider1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <customfonts.TextViewSFProDisplayRegular
+                android:paddingHorizontal="20dp"
+                android:textSize="17sp"
+                android:layout_marginTop="12dp"
+                android:text="Daftar Pesanan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_pesanan"
+                android:paddingHorizontal="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:id="@+id/divider2"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                android:layout_below="@id/layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_marginTop="10dp"
+                    android:background="@color/grey_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"/>
+                <View
+                    android:layout_marginTop="2dp"
+                    android:background="@color/grey_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"/>
+            </LinearLayout>
+
+            <customfonts.EditTextSFProDisplayMedium
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="20dp"
+                android:paddingHorizontal="20dp"
+                android:id="@+id/etvoucher"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/ic_voucher"
+                android:background="@color/grey_10"
+                android:hint="Masukkan Voucher Disini"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="14dp" />
+
+            <customfonts.TextViewSFProDisplayRegular
+                android:paddingHorizontal="20dp"
+                android:textSize="17sp"
+                android:layout_marginTop="15dp"
+                android:text="Ringkasan Pembayaran"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <customfonts.TextViewSFProDisplayRegular
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Harga"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <customfonts.TextViewSFProDisplayRegular
+                    android:id="@+id/txtharga"
+                    android:textAlignment="textEnd"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="147.000"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <customfonts.TextViewSFProDisplayRegular
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Diskon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <customfonts.TextViewSFProDisplayRegular
+                    android:id="@+id/txtdiskon"
+                    android:textAlignment="textEnd"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <customfonts.TextViewSFProDisplayRegular
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Total Pembayaran"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <customfonts.TextViewSFProDisplayRegular
+                    android:id="@+id/txttotalpembayaran"
+                    android:textAlignment="textEnd"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="147.000"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/divider3"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:layout_below="@id/layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_marginTop="10dp"
+                    android:background="@color/grey_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"/>
+                <View
+                    android:layout_marginTop="2dp"
+                    android:background="@color/grey_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="20dp"
+                android:id="@+id/llpesan"
+                android:background="@drawable/button_round_1"
+                android:weightSum="2"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="25dp"
+                android:paddingVertical="15dp"
+                android:paddingHorizontal="15dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <customfonts.TextViewSFProDisplayRegular
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:layout_weight="1"
+                    android:text="Pesan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <customfonts.TextViewSFProDisplayRegular
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:id="@+id/txttotalinbutton"
+                    android:textAlignment="textEnd"
+                    android:layout_weight="1"
+                    android:text="147.000"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+
+
+
+</RelativeLayout>

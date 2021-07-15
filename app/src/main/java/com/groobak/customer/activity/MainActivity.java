@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -42,13 +44,15 @@ import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
+    private FragmentManager fragmentManager;
     public static String apikey;
     @SuppressLint("StaticFieldLeak")
     public static MainActivity mainActivity;
     long mBackPressed;
     LinearLayout mAdViewLayout;
     int previousSelect = 0;
-    private FragmentManager fragmentManager;
+    private ImageView img_beranda, img_aktivitas, img_inbox, img_akun;
+
 //    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
 //            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 //
@@ -104,6 +108,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        img_beranda = findViewById(R.id.ictopup);
+        img_aktivitas = findViewById(R.id.icpromo);
+        img_inbox = findViewById(R.id.icwa);
+        img_akun = findViewById(R.id.icdetail);
+
         mAdViewLayout = findViewById(R.id.adView);
         fragmentManager = getSupportFragmentManager();
 //        navigation = findViewById(R.id.navigation);
@@ -126,6 +136,38 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         Constants.versionname = Objects.requireNonNull(packageInfo).versionName;
+
+        img_beranda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HomeFragment homeFragment = new HomeFragment();
+                loadFrag(homeFragment, getString(R.string.menu_home), fragmentManager);
+            }
+        });
+
+        img_aktivitas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HistoryFragment listFragment = new HistoryFragment();
+                loadFrag(listFragment, getString(R.string.menu_home), fragmentManager);
+            }
+        });
+
+        img_inbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MessageFragment pesanFragment = new MessageFragment();
+                loadFrag(pesanFragment, getString(R.string.menu_home), fragmentManager);
+            }
+        });
+
+        img_akun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProfileFragment profilFragment = new ProfileFragment();
+                loadFrag(profilFragment, getString(R.string.menu_home), fragmentManager);
+            }
+        });
 
 
     }

@@ -10,27 +10,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.github.ornolfr.ratingview.RatingView;
 import com.groobak.customer.R;
 import com.groobak.customer.constants.Constants;
 import com.groobak.customer.models.DriverModel;
-import com.groobak.customer.models.RatingModel;
+import com.groobak.customer.models.ItemModel;
 import com.groobak.customer.utils.PicassoTrustAll;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 
 
-public class DriverItem extends PagerAdapter {
+public class IkanItem extends PagerAdapter {
 
-    private List<DriverModel> models;
+    private List<ItemModel> models;
     private Context context;
 
-    public DriverItem(List<DriverModel> models, Context context) {
+    public IkanItem(List<ItemModel> models, Context context) {
         this.models = models;
         this.context = context;
     }
@@ -49,19 +43,19 @@ public class DriverItem extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.item_groobak, container, false);
+        View view = layoutInflater.inflate(R.layout.item_ikan, container, false);
 
-        TextView namagroobak;
+        TextView namaikan;
         ImageView images;
 
         images = view.findViewById(R.id.image);
-        namagroobak = view.findViewById(R.id.txtnamagroobak);
+        namaikan = view.findViewById(R.id.namaikan);
 
-        final DriverModel singleItem = models.get(position);
-        namagroobak.setText(singleItem.getNamaDriver());
-        if (!singleItem.getFoto().isEmpty()) {
+        final ItemModel singleItem = models.get(position);
+        namaikan.setText(singleItem.getNama_item());
+        if (!singleItem.getFoto_item().isEmpty()) {
             PicassoTrustAll.getInstance(context)
-                    .load(singleItem.getFoto())
+                    .load(Constants.IMAGESITEM + singleItem.getFoto_item())
                     .resize(250, 250)
                     .into(images);
         }

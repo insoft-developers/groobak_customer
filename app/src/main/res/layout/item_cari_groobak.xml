@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainlayout"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_marginBottom="5dp"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/gray"
+        android:orientation="vertical" />
+
+    <RelativeLayout
+        android:id="@+id/rlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <RelativeLayout
+            android:id="@+id/rlicon"
+            android:layout_width="55dp"
+            android:layout_height="55dp">
+
+            <ImageView
+                android:id="@+id/background"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/groobak" />
+        </RelativeLayout>
+
+        <LinearLayout
+
+            android:id="@+id/layout_utama"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/rlicon"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <customfonts.TextViewSFProDisplayMedium
+                    android:id="@+id/nama_groobak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/datetxt"
+                    android:maxLines="1"
+                    android:text="Groobak"
+                    android:textColor="@color/black"
+                    android:textSize="17dp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+
+                <customfonts.TextViewSFProDisplayRegular
+                    android:drawableStart="@drawable/ic_lokasi"
+                    android:id="@+id/jarak_groobak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:text="0 m dari Anda"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColor="@color/black"
+                    android:textSize="13dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_marginLeft="5dp"
+            android:id="@+id/btn_pilih_groobak"
+            android:layout_marginTop="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_round_green"
+            android:textAlignment="center"
+            android:text="Pilih"
+            android:layout_width="100dp"
+            android:layout_height="30dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
+

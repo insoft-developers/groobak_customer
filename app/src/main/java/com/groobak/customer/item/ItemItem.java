@@ -42,6 +42,7 @@ public class ItemItem extends AbstractItem<ItemItem, ItemItem.ViewHolder> {
     public String foto;
     public String promo;
     public int quantity;
+
     public String catatan;
     private Context context;
     private OnCalculatePrice calculatePrice;
@@ -62,7 +63,9 @@ public class ItemItem extends AbstractItem<ItemItem, ItemItem.ViewHolder> {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 catatan = s.toString();
-                if (quantity > 0) UpdatePesanan(id, cost, quantity, catatan);
+                String hargastr = String.valueOf(harga);
+                int hargaint = Integer.parseInt(hargastr);
+                if (quantity > 0) UpdatePesanan(id, cost, quantity, hargaint);
             }
 
             @Override
@@ -88,7 +91,7 @@ public class ItemItem extends AbstractItem<ItemItem, ItemItem.ViewHolder> {
         if (!foto.isEmpty()) {
             PicassoTrustAll.getInstance(context)
                     .load(Constants.IMAGESITEM + foto)
-                    .resize(250, 250)
+                    .resize(60, 60)
                     .into(holder.image);
         }
 
@@ -97,23 +100,11 @@ public class ItemItem extends AbstractItem<ItemItem, ItemItem.ViewHolder> {
         holder.notesText.setText(catatan);
 
         holder.notesText.addTextChangedListener(catatanUpdater);
-
-        if (promo.equals("1")) {
-            holder.shimmerbadgeicon.setVisibility(View.VISIBLE);
-            holder.shimmerbadge.setVisibility(View.VISIBLE);
-            holder.shimmerbadge.startShimmerAnimation();
-            holder.hargadasar.setVisibility(View.VISIBLE);
-            Utility.currencyTXT(holder.hargadasar, String.valueOf(harga), context);
-            Utility.currencyTXT(holder.hargaText, String.valueOf(hargapromo), context);
-            holder.hargadasar.setPaintFlags(holder.hargadasar.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            holder.deskripsiText.setMinLines(2);
-        } else {
-            holder.shimmerbadgeicon.setVisibility(View.GONE);
-            holder.shimmerbadge.setVisibility(View.GONE);
-            holder.shimmerbadge.stopShimmerAnimation();
-            holder.hargadasar.setVisibility(View.GONE);
-            Utility.currencyTXT(holder.hargaText, String.valueOf(harga), context);
-        }
+        holder.shimmerbadgeicon.setVisibility(View.GONE);
+        holder.shimmerbadge.setVisibility(View.GONE);
+        holder.shimmerbadge.stopShimmerAnimation();
+        holder.hargadasar.setVisibility(View.GONE);
+        Utility.currencyTXT(holder.hargaText, String.valueOf(harga), context);
 
         holder.addQuantity.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
@@ -123,10 +114,12 @@ public class ItemItem extends AbstractItem<ItemItem, ItemItem.ViewHolder> {
                 holder.quantityText.setText("" + quantity);
                 holder.notesText.setEnabled(true);
                 CalculateCost();
+                String hargastr = String.valueOf(harga);
+                int hargaint = Integer.parseInt(hargastr);
                 if (quantity == 1) {
-                    AddPesanan(id, cost, quantity, catatan);
+                    AddPesanan(id, cost, quantity, hargaint);
                 } else if (quantity > 1) {
-                    UpdatePesanan(id, cost, quantity, catatan);
+                    UpdatePesanan(id, cost, quantity, hargaint);
                 }
 
                 if (calculatePrice != null) calculatePrice.calculatePrice();
@@ -141,7 +134,9 @@ public class ItemItem extends AbstractItem<ItemItem, ItemItem.ViewHolder> {
                     quantity--;
                     holder.quantityText.setText(String.valueOf(quantity));
                     CalculateCost();
-                    UpdatePesanan(id, cost, quantity, catatan);
+                    String hargastr = String.valueOf(harga);
+                    int hargaint = Integer.parseInt(hargastr);
+                    UpdatePesanan(id, cost, quantity, hargaint);
 
                     if (quantity == 0) {
                         DeletePesanan(id);
@@ -156,31 +151,26 @@ public class ItemItem extends AbstractItem<ItemItem, ItemItem.ViewHolder> {
     }
 
     private void CalculateCost() {
-        if (promo.equals("1")) {
-            cost = quantity * hargapromo;
-        } else {
-            cost = quantity * harga;
-        }
+        cost = quantity * harga;
     }
 
-    private void AddPesanan(int idMakanan, long totalHarga, int qty, String notes) {
+    private void AddPesanan(int idMakanan, long totalHarga, int qty, int hargasatuan) {
         PesananMerchant pesananfood = new PesananMerchant();
         pesananfood.setIdItem(idMakanan);
         pesananfood.setTotalHarga(totalHarga);
         pesananfood.setQty(qty);
-        pesananfood.setCatatan(notes);
+        pesananfood.setHargaSatuan(hargasatuan);
         realm.beginTransaction();
         realm.copyToRealm(pesananfood);
         realm.commitTransaction();
-
     }
 
-    private void UpdatePesanan(int idMakanan, long totalHarga, int qty, String notes) {
+    private void UpdatePesanan(int idMakanan, long totalHarga, int qty, int hargasatuan) {
         realm.beginTransaction();
         PesananMerchant updateFood = realm.where(PesananMerchant.class).equalTo("idItem", idMakanan).findFirst();
         Objects.requireNonNull(updateFood).setTotalHarga(totalHarga);
         updateFood.setQty(qty);
-        updateFood.setCatatan(notes);
+        updateFood.setHargaSatuan(hargasatuan);
         realm.copyToRealm(updateFood);
         realm.commitTransaction();
 

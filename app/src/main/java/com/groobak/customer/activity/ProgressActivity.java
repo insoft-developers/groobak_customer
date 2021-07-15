@@ -316,11 +316,9 @@ public class ProgressActivity extends AppCompatActivity
         textnotif = findViewById(R.id.textnotif);
         rlprogress = findViewById(R.id.rlprogress);
         textprogress = findViewById(R.id.textprogress);
-        llmerchantdetail = findViewById(R.id.merchantdetail);
         time = findViewById(R.id.time);
         costtext = findViewById(R.id.cost_text);
         rvmerchantnear = findViewById(R.id.merchantnear);
-        totaltext = findViewById(R.id.totaltext);
 
         status.setVisibility(View.VISIBLE);
         image.setVisibility(View.GONE);

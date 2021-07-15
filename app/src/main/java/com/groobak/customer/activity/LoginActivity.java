@@ -474,16 +474,16 @@ public class LoginActivity extends AppCompatActivity {
                 progresshide();
                 if (response.isSuccessful()) {
                     if (Objects.requireNonNull(response.body()).getMessage().equalsIgnoreCase("found")) {
-                        if (verify.equals("false")) {
-                            Nextbtn(viewFlipper);
-                        } else {
+//                        if (verify.equals("false")) {
+//                            Nextbtn(viewFlipper);
+//                        } else {
                             User user = response.body().getData().get(0);
                             saveUser(user);
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             finish();
-                        }
+//                        }
 
                     } else {
                         notif(getString(R.string.phoneemailwrong));

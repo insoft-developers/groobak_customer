@@ -325,7 +325,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/as/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/notifications/baseline_notifications_24.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/as/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/list_alt/baseline_list_alt_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -335,8 +335,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="d4d6d6" />
-                            <entry key="outputName" value="ic_lonceng" />
+                            <entry key="color" value="00934b" />
+                            <entry key="outputName" value="ic_voucher" />
                             <entry key="sourceFile" value="D:\groobak\Gotam" />
                           </map>
                         </option>

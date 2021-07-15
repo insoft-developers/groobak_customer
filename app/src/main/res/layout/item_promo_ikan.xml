@@ -5,6 +5,8 @@
     android:id="@+id/rootLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginRight="5dp"
     app:ignore="NamespaceTypo">
 
 
@@ -18,23 +20,24 @@
         android:layout_marginBottom="3dp"
         card_view:cardBackgroundColor="@color/white"
         card_view:cardCornerRadius="8dp"
-        card_view:cardUseCompatPadding="false">
+        card_view:cardUseCompatPadding="false"
+        card_view:elevation="15dp">
 
         <LinearLayout
-            android:layout_width="130dp"
-            android:layout_height="200dp"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_width="130dp"
-                android:layout_height="130dp">
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
 
                 <ImageView
-                    android:scaleType="fitXY"
                     android:id="@+id/image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:scaleType="fitXY"
                     android:src="@drawable/image_placeholder" />
 
             </RelativeLayout>
@@ -45,7 +48,7 @@
                 android:orientation="vertical">
 
                 <customfonts.TextViewSFProDisplayMedium
-                    android:id="@+id/txtnamagroobak"
+                    android:id="@+id/namakategori"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -54,25 +57,23 @@
                     android:layout_weight="1"
                     android:gravity="top"
                     android:maxLines="1"
-                    android:text="nama grobak"
+                    android:text="Promo 1"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
 
                 <customfonts.TextViewSFProDisplayRegular
-                    android:id="@+id/txtjenisikan"
+                    android:id="@+id/content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="top"
                     android:maxLines="2"
                     android:minLines="2"
-                    android:drawablePadding="3dp"
-                    android:drawableStart="@drawable/ikan_air"
-                    android:text="12 jenis ikan"
-                    android:textColor="@color/green_700"
+                    android:text="5 Kg Ikan Tongkol"
+                    android:textColor="@color/black"
                     android:textSize="12dp" />
 
             </LinearLayout>
@@ -80,5 +81,17 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <FrameLayout
+        android:id="@+id/promobadge"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:background="@drawable/promobadge"
+        android:elevation="15dp"
+        android:outlineProvider="none">
+
+
+    </FrameLayout>
+
 
 </RelativeLayout>

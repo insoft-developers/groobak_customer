@@ -4,9 +4,13 @@ import com.groobak.customer.json.CheckStatusTransaksiRequest;
 import com.groobak.customer.json.CheckStatusTransaksiResponse;
 import com.groobak.customer.json.DetailRequestJson;
 import com.groobak.customer.json.DetailTransResponseJson;
+import com.groobak.customer.json.GetItemResponseJson;
 import com.groobak.customer.json.GetNearRideCarRequestJson;
 import com.groobak.customer.json.GetNearRideCarResponseJson;
+import com.groobak.customer.json.ItemRequestIkanJson;
 import com.groobak.customer.json.ItemRequestJson;
+import com.groobak.customer.json.KatalogRequestJson;
+import com.groobak.customer.json.KatalogResponseJson;
 import com.groobak.customer.json.LokasiDriverRequest;
 import com.groobak.customer.json.LokasiDriverResponse;
 import com.groobak.customer.json.RideCarRequestJson;
@@ -18,13 +22,23 @@ import com.groobak.customer.json.fcm.CancelBookResponseJson;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 
 public interface BookService {
 
+    @POST("pelanggan/getikanbyjumlahgroobak")
+    Call<KatalogResponseJson> katalogikan(@Body KatalogRequestJson param);
+
+    @POST("pelanggan/listitembyid")
+    Call<GetItemResponseJson> getItem(@Body ItemRequestIkanJson param);
+
     @POST("pelanggan/list_ride")
     Call<GetNearRideCarResponseJson> getNearRide(@Body GetNearRideCarRequestJson param);
+
+    @GET("pelanggan/daftar_makanan")
+    Call<GetItemResponseJson> getDaftarMakanan();
 
     @POST("pelanggan/list_car")
     Call<GetNearRideCarResponseJson> getNearCar(@Body GetNearRideCarRequestJson param);

@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,9 +29,12 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.gms.maps.model.Marker;
 import com.groobak.customer.R;
 import com.groobak.customer.activity.AllBeritaActivity;
+import com.groobak.customer.activity.CariGroobakActivity;
 import com.groobak.customer.activity.IntroActivity;
+import com.groobak.customer.activity.KatalogActivity;
 import com.groobak.customer.activity.PpobActivity;
 import com.groobak.customer.activity.PromoActivity;
+import com.groobak.customer.activity.RideCarActivity;
 import com.groobak.customer.activity.TopupSaldoActivity;
 import com.groobak.customer.activity.WaActivity;
 import com.groobak.customer.activity.WalletActivity;
@@ -42,12 +46,15 @@ import com.groobak.customer.item.CatMerchantItem;
 import com.groobak.customer.item.CatMerchantNearItem;
 import com.groobak.customer.item.DriverItem;
 import com.groobak.customer.item.FiturItem;
+import com.groobak.customer.item.IkanItem;
 import com.groobak.customer.item.MerchantItem;
 import com.groobak.customer.item.MerchantNearItem;
+import com.groobak.customer.item.PromoIkanItem;
 import com.groobak.customer.item.RatingItem;
 import com.groobak.customer.item.SliderItem;
 import com.groobak.customer.json.GetHomeRequestJson;
 import com.groobak.customer.json.GetHomeResponseJson;
+import com.groobak.customer.json.GetItemResponseJson;
 import com.groobak.customer.json.GetMerchantbyCatRequestJson;
 import com.groobak.customer.json.GetNearRideCarRequestJson;
 import com.groobak.customer.json.GetNearRideCarResponseJson;
@@ -58,6 +65,7 @@ import com.groobak.customer.models.CatMerchantModel;
 import com.groobak.customer.models.DriverModel;
 import com.groobak.customer.models.FiturDataModel;
 import com.groobak.customer.models.FiturModel;
+import com.groobak.customer.models.ItemModel;
 import com.groobak.customer.models.MerchantModel;
 import com.groobak.customer.models.MerchantNearModel;
 import com.groobak.customer.models.User;
@@ -94,6 +102,8 @@ public class HomeFragment extends Fragment {
     private Integer[] colors = null;
     private FiturItem fiturItem;
     private DriverItem driverItem;
+    private PromoIkanItem promoIkanItem;
+    private IkanItem ikanItem;
     private BeritaItem beritaItem;
     private MerchantItem merchantItem;
     private MerchantNearItem merchantNearItem;
@@ -108,8 +118,11 @@ public class HomeFragment extends Fragment {
     private BottomSheetBehavior mBehavior;
     private BottomSheetDialog mBottomSheetDialog;
     private TextView txt_lokasi_saya, txt_welcome;
-    private ViewPager rvgroobak;
+    private ViewPager rvgroobak, rvikan;
+    private RecyclerView rvpromo;
     private List<DriverModel> driverAvailable;
+    private List<ItemModel> itemAvailable;
+
 
     @SuppressLint("MissingPermission")
     @Override
@@ -123,12 +136,14 @@ public class HomeFragment extends Fragment {
         txt_lokasi_saya = getView.findViewById(R.id.txt_lokasi_saya);
         txt_welcome = getView.findViewById(R.id.txt_welcome);
         rvgroobak = getView.findViewById(R.id.viewPagerGroobak);
-        circleIndicatorreview = getView.findViewById(R.id.indicator_unselected_background_review);
+        rvikan = getView.findViewById(R.id.viewPagerIkan);
+        rvpromo = getView.findViewById(R.id.rvpromo);
         RelativeLayout detail = getView.findViewById(R.id.detail);
         sp = new SettingPreference(context);
         RelativeLayout promo = getView.findViewById(R.id.promo);
         fiturlist = new ArrayList<>();
         driverAvailable = new ArrayList<>();
+        itemAvailable = new ArrayList<>();
 
 
         Integer[] colors_temp = {
@@ -141,8 +156,10 @@ public class HomeFragment extends Fragment {
         topup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, TopupSaldoActivity.class);
+                Intent i = new Intent(context, CariGroobakActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.putExtra("FiturKey", 1);
+                i.putExtra("job", 7);
                 startActivity(i);
 
             }
@@ -151,7 +168,7 @@ public class HomeFragment extends Fragment {
         promo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, PromoActivity.class);
+                Intent i = new Intent(context, KatalogActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
 
@@ -214,7 +231,7 @@ public class HomeFragment extends Fragment {
                 String fitur_saya = "1";
                 if (location != null) {
                     gethome(location);
-                    fetchNearDriver(location.getLatitude(), location.getLongitude(), fitur_saya);
+
                     Constants.LATITUDE = location.getLatitude();
                     Constants.LONGITUDE = location.getLongitude();
                     Log.e("BEARING:", String.valueOf(location.getBearing()));
@@ -225,7 +242,48 @@ public class HomeFragment extends Fragment {
         });
 
         colors = colors_temp;
+
+        ikanRekomendasi();
+
         return getView;
+    }
+
+    private void ikanRekomendasi() {
+        if (itemAvailable != null) {
+            itemAvailable.clear();
+        }
+
+        User loginUser = BaseApp.getInstance(context).getLoginUser();
+        BookService service = ServiceGenerator.createService(BookService.class, loginUser.getEmail(), loginUser.getPassword());
+        service.getDaftarMakanan().enqueue(new Callback<GetItemResponseJson>() {
+            @Override
+            public void onResponse(@NonNull Call<GetItemResponseJson> call, @NonNull Response<GetItemResponseJson> response) {
+                if (response.isSuccessful()) {
+                    itemAvailable = Objects.requireNonNull(response.body()).getData();
+                    if (itemAvailable.isEmpty()) {
+                        rvikan.setVisibility(View.GONE);
+                    } else {
+                        ikanItem = new IkanItem(itemAvailable, context);
+                        rvikan.setAdapter(ikanItem);
+                        rvikan.setPadding(10, 0, 120, 0);
+
+                        promoIkanItem = new PromoIkanItem(itemAvailable, context);
+                        rvpromo.setAdapter(promoIkanItem);
+
+                        rvpromo.setHasFixedSize(true);
+                        LinearLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+                        rvpromo.setLayoutManager(layoutManager);
+                        rvpromo.setNestedScrollingEnabled(false);
+                        rvpromo.setFocusable(false);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull retrofit2.Call<GetItemResponseJson> call, @NonNull Throwable t) {
+
+            }
+        });
     }
 
 
@@ -253,11 +311,12 @@ public class HomeFragment extends Fragment {
         return strAdd;
     }
 
-
-
     private void gethome(final Location location) {
         String lokasi_saya = getCompleteAddressString(location.getLatitude(), location.getLongitude());
         txt_lokasi_saya.setText(lokasi_saya);
+        String fitur_saya = "1";
+        fetchNearDriver(location.getLatitude(), location.getLongitude(), fitur_saya);
+//        Toast.makeText(context, "lat: "+location.getLatitude()+" long "+location.getLongitude(), Toast.LENGTH_SHORT).show();
         User loginUser = BaseApp.getInstance(context).getLoginUser();
         UserService userService = ServiceGenerator.createService(
                 UserService.class, loginUser.getNoTelepon(), loginUser.getPassword());
@@ -412,7 +471,6 @@ public class HomeFragment extends Fragment {
                     } else {
                         driverItem = new DriverItem(driverAvailable, context);
                         rvgroobak.setAdapter(driverItem);
-                        circleIndicatorreview.setViewPager(rvgroobak);
                         rvgroobak.setPadding(10, 0, 320, 0);
                     }
                 }
