@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.groobak.customer.R;
 import com.groobak.customer.constants.BaseApp;
 import com.groobak.customer.item.IkanItem;
@@ -35,11 +36,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.view.View.GONE;
+
 public class KatalogActivity extends AppCompatActivity {
     private ImageView backbtn;
     private EditText carikatalogikan;
     private RecyclerView rvkatalogikan;
     private List<KatalogModel> itemAvailable;
+    private ShimmerFrameLayout shimmerkatalog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class KatalogActivity extends AppCompatActivity {
         carikatalogikan = findViewById(R.id.cari_katalog_ikan);
         rvkatalogikan = findViewById(R.id.rv_katalog_ikan);
         itemAvailable = new ArrayList<>();
+        shimmerkatalog = findViewById(R.id.shimmerkatalog);
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +81,8 @@ public class KatalogActivity extends AppCompatActivity {
                 katalogikan(s);
             }
         });
+
+        showsimmer();
     }
 
     private void katalogikan(String nama_ikan) {
@@ -90,9 +97,10 @@ public class KatalogActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<KatalogResponseJson> call, @NonNull Response<KatalogResponseJson> response) {
                 if (response.isSuccessful()) {
+                    shimmertutup();
                     itemAvailable = Objects.requireNonNull(response.body()).getData();
                     if (itemAvailable.isEmpty()) {
-                        rvkatalogikan.setVisibility(View.GONE);
+                        rvkatalogikan.setVisibility(GONE);
                     } else {
 
                         KatalogItem katalogItem = new KatalogItem(KatalogActivity.this, itemAvailable);
@@ -111,5 +119,16 @@ public class KatalogActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void showsimmer() {
+        rvkatalogikan.setVisibility(GONE);
+        shimmerkatalog.startShimmerAnimation();
+    }
+
+    private void shimmertutup() {
+        shimmerkatalog.stopShimmerAnimation();
+        shimmerkatalog.setVisibility(View.GONE);
+        rvkatalogikan.setVisibility(View.VISIBLE);
     }
 }

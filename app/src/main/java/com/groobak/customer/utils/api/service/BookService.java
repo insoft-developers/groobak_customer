@@ -27,6 +27,8 @@ import retrofit2.http.POST;
 
 
 public interface BookService {
+    @POST("pelanggan/list_ride_perikan")
+    Call<GetNearRideCarResponseJson> groobakperikan(@Body GetNearRideCarRequestJson param);
 
     @POST("pelanggan/getikanbyjumlahgroobak")
     Call<KatalogResponseJson> katalogikan(@Body KatalogRequestJson param);
@@ -36,6 +38,9 @@ public interface BookService {
 
     @POST("pelanggan/list_ride")
     Call<GetNearRideCarResponseJson> getNearRide(@Body GetNearRideCarRequestJson param);
+
+    @POST("pelanggan/list_ikan_terbanyak")
+    Call<GetNearRideCarResponseJson> getGroobakTerlengkap(@Body GetNearRideCarRequestJson param);
 
     @GET("pelanggan/daftar_makanan")
     Call<GetItemResponseJson> getDaftarMakanan();

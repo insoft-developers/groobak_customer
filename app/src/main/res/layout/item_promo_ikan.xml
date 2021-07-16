@@ -48,7 +48,7 @@
                 android:orientation="vertical">
 
                 <customfonts.TextViewSFProDisplayMedium
-                    android:id="@+id/namakategori"
+                    android:id="@+id/txtnamaikan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -62,7 +62,7 @@
                     android:textSize="15dp" />
 
                 <customfonts.TextViewSFProDisplayRegular
-                    android:id="@+id/content"
+                    android:id="@+id/txtcontent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"

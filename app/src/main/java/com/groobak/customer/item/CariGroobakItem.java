@@ -68,6 +68,7 @@ public class CariGroobakItem extends RecyclerView.Adapter<CariGroobakItem.ItemRo
                 intent.putExtra("nama_orang_intent", singleItem.getNamaDriver());
                 intent.putExtra("jarak_intent", jarak_kirim);
                 intent.putExtra("foto_intent", singleItem.getFoto());
+                intent.putExtra("jenis_ikan_intent", singleItem.getJenis_ikan());
                 mContext.startActivity(intent);
             }
         });

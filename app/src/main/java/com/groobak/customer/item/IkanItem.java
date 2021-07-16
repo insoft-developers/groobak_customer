@@ -1,16 +1,19 @@
 package com.groobak.customer.item;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.groobak.customer.R;
+import com.groobak.customer.activity.CariGroobakActivity2;
 import com.groobak.customer.constants.Constants;
 import com.groobak.customer.models.DriverModel;
 import com.groobak.customer.models.ItemModel;
@@ -47,9 +50,11 @@ public class IkanItem extends PagerAdapter {
 
         TextView namaikan;
         ImageView images;
+        RelativeLayout rootLayout;
 
         images = view.findViewById(R.id.image);
         namaikan = view.findViewById(R.id.namaikan);
+        rootLayout = view.findViewById(R.id.rootLayout);
 
         final ItemModel singleItem = models.get(position);
         namaikan.setText(singleItem.getNama_item());
@@ -59,6 +64,19 @@ public class IkanItem extends PagerAdapter {
                     .resize(250, 250)
                     .into(images);
         }
+
+        rootLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(context, CariGroobakActivity2.class);
+                in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                in.putExtra("FiturKey", 1);
+                in.putExtra("job", 7);
+                in.putExtra("nama_ikan", singleItem.getNama_item());
+                context.startActivity(in);
+            }
+        });
+
         container.addView(view, 0);
         return view;
     }

@@ -84,10 +84,12 @@ public class PilihGroobakActivity extends AppCompatActivity implements PilihGroo
         String nama_orang_intent = getIntent().getStringExtra("nama_orang_intent");
         String jarak_intent = getIntent().getStringExtra("jarak_intent");
         String foto_intent = getIntent().getStringExtra("foto_intent");
+        String jenis_ikan = getIntent().getStringExtra("jenis_ikan_intent");
 
         txt_nama_groobak.setText("Groobak "+nama_groobak_intent);
         txt_nama_orang.setText(nama_orang_intent);
         txt_jarak.setText(jarak_intent+" km dari Anda");
+        txt_jenis_ikan.setText(jenis_ikan+" Jenis Ikan");
         PicassoTrustAll.getInstance(PilihGroobakActivity.this)
                 .load(foto_intent)
                 .placeholder(R.drawable.image_placeholder)

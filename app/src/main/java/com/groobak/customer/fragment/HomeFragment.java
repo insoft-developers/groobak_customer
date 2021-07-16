@@ -122,6 +122,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView rvpromo;
     private List<DriverModel> driverAvailable;
     private List<ItemModel> itemAvailable;
+    private ShimmerFrameLayout shimmergroobak, shimmerrekom, shimmerpromo;
 
 
     @SuppressLint("MissingPermission")
@@ -139,6 +140,10 @@ public class HomeFragment extends Fragment {
         rvikan = getView.findViewById(R.id.viewPagerIkan);
         rvpromo = getView.findViewById(R.id.rvpromo);
         RelativeLayout detail = getView.findViewById(R.id.detail);
+        shimmergroobak = getView.findViewById(R.id.shimmergroobak);
+        shimmerrekom = getView.findViewById(R.id.shimmerrekom);
+        shimmerpromo = getView.findViewById(R.id.shimmerpromo);
+
         sp = new SettingPreference(context);
         RelativeLayout promo = getView.findViewById(R.id.promo);
         fiturlist = new ArrayList<>();
@@ -244,6 +249,7 @@ public class HomeFragment extends Fragment {
         colors = colors_temp;
 
         ikanRekomendasi();
+        shimmershow();
 
         return getView;
     }
@@ -461,10 +467,11 @@ public class HomeFragment extends Fragment {
         param.setLongitude(longitude);
         param.setFitur(fitur);
 
-        service.getNearRide(param).enqueue(new Callback<GetNearRideCarResponseJson>() {
+        service.getGroobakTerlengkap(param).enqueue(new Callback<GetNearRideCarResponseJson>() {
             @Override
             public void onResponse(@NonNull Call<GetNearRideCarResponseJson> call, @NonNull Response<GetNearRideCarResponseJson> response) {
                 if (response.isSuccessful()) {
+                    shimmertutup();
                     driverAvailable = Objects.requireNonNull(response.body()).getData();
                     if (driverAvailable.isEmpty()) {
                         rvgroobak.setVisibility(View.GONE);
@@ -482,6 +489,29 @@ public class HomeFragment extends Fragment {
             }
         });
 
+    }
+
+    private void shimmershow() {
+        shimmergroobak.startShimmerAnimation();
+        shimmerrekom.startShimmerAnimation();
+        shimmerpromo.startShimmerAnimation();
+        rvgroobak.setVisibility(View.GONE);
+        rvikan.setVisibility(View.GONE);
+        rvpromo.setVisibility(View.GONE);
+    }
+
+    private void shimmertutup() {
+        shimmergroobak.stopShimmerAnimation();
+        shimmergroobak.setVisibility(View.GONE);
+        rvgroobak.setVisibility(View.VISIBLE);
+
+        shimmerrekom.stopShimmerAnimation();
+        shimmerrekom.setVisibility(View.GONE);
+        rvikan.setVisibility(View.VISIBLE);
+
+        shimmerpromo.stopShimmerAnimation();
+        shimmerpromo.setVisibility(View.GONE);
+        rvpromo.setVisibility(View.VISIBLE);
     }
 
 

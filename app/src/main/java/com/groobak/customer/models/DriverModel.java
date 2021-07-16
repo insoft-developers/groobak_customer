@@ -74,6 +74,10 @@ public class DriverModel extends RealmObject implements Serializable {
     @SerializedName("bearing")
     private String bearing;
 
+    @Expose
+    @SerializedName("jenis_ikan")
+    private String jenis_ikan;
+
 
     public String getNamaDriver() {
         return namaDriver;
@@ -196,5 +200,11 @@ public class DriverModel extends RealmObject implements Serializable {
         this.bearing = bearing;
     }
 
+    public String getJenis_ikan() {
+        return jenis_ikan;
+    }
 
+    public void setJenis_ikan(String jenis_ikan) {
+        this.jenis_ikan = jenis_ikan;
+    }
 }

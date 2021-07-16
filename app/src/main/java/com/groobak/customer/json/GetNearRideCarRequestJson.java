@@ -21,6 +21,10 @@ public class GetNearRideCarRequestJson {
     @SerializedName("fitur")
     private String fitur;
 
+    @Expose
+    @SerializedName("nama_ikan")
+    private String nama_ikan;
+
     public double getLatitude() {
         return latitude;
     }
@@ -43,5 +47,13 @@ public class GetNearRideCarRequestJson {
 
     public void setFitur(String fitur) {
         this.fitur = fitur;
+    }
+
+    public String getNama_ikan() {
+        return nama_ikan;
+    }
+
+    public void setNama_ikan(String nama_ikan) {
+        this.nama_ikan = nama_ikan;
     }
 }

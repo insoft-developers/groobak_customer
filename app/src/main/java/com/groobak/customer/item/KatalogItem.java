@@ -1,16 +1,21 @@
 package com.groobak.customer.item;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.groobak.customer.R;
+import com.groobak.customer.activity.CariGroobakActivity;
+import com.groobak.customer.activity.CariGroobakActivity2;
 import com.groobak.customer.constants.BaseApp;
 import com.groobak.customer.constants.Constants;
 import com.groobak.customer.models.ItemModel;
@@ -56,6 +61,20 @@ public class KatalogItem extends RecyclerView.Adapter<KatalogItem.ItemRowHolder>
                 .into(holder.image);
 
 
+        holder.listitem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(mContext, CariGroobakActivity2.class);
+                in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                in.putExtra("FiturKey", 1);
+                in.putExtra("job", 7);
+                in.putExtra("nama_ikan", singleItem.getNama_item());
+                mContext.startActivity(in);
+
+            }
+        });
+
+
     }
 
     @Override
@@ -65,6 +84,7 @@ public class KatalogItem extends RecyclerView.Adapter<KatalogItem.ItemRowHolder>
 
     static class ItemRowHolder extends RecyclerView.ViewHolder {
         TextView txt_nama_ikan, txt_bawa_ikan, txt_like;
+        LinearLayout listitem;
         ImageView image;
 
         ItemRowHolder(View itemView) {
@@ -73,6 +93,7 @@ public class KatalogItem extends RecyclerView.Adapter<KatalogItem.ItemRowHolder>
             txt_bawa_ikan = itemView.findViewById(R.id.txt_bawa_ikan);
             image = itemView.findViewById(R.id.image);
             txt_like = itemView.findViewById(R.id.txt_like);
+            listitem = itemView.findViewById(R.id.list_item);
         }
     }
 
